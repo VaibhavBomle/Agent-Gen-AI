@@ -1,7 +1,5 @@
 from langchain.agents import AgentType,initialize_agent,load_tools
 from langchain_openai import ChatOpenAI
-import os
-
 from load_llm import *
 
 
