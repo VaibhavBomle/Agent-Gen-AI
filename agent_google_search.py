@@ -1,24 +1,11 @@
 from langchain.agents import AgentType,initialize_agent,load_tools
 from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
-
-# Initialize LLM
-def get_LLM():
-  openai_api_key = os.getenv("OPENAI_API_KEY")
-  serp_api_key = os.getenv("SERP_API_KEY")
-  os.environ["SERPAPI_API_KEY"] = serp_api_key  
-  llm = ChatOpenAI(
-    model="gpt-3.5-turbo",
-    temperature=0,
-    openai_api_key= openai_api_key
-   )
-  return llm
+from load_llm import *
 
 
-# load tools and get agent
+# load tools(serpapi) and get agent
 def load_tools_and_get_agent():
   llm = get_LLM()
   tool = load_tools(["serpapi","llm-math"],llm=llm)
@@ -29,6 +16,12 @@ def load_tools_and_get_agent():
 agent = load_tools_and_get_agent()
 
 print(agent.run("How much is US GDP in 2024 plus 5?"))
+
+print("============",end="")
+print(agent.run("in which year indian team won its second world cup?"))
+
+print("============",end="")
+print(agent.run("How much seat Won by indian Policitcs party in 2014?"))
 
 """
 Note :
